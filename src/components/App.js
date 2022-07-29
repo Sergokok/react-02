@@ -3,14 +3,38 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
-
+// import Card from './Card';
 
 export default function App() {
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  // const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
+  }
 
   return (
     <div className="page">
     <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}/>
       <Footer />
 
   {/*// <!-- Попап редактирования профиля -->//*/}
@@ -109,17 +133,17 @@ export default function App() {
     </div>
   </section>
   {/*// <!-- Шаблон карточек с фото -->*/}
-  <template className="elements__template">
-    <li className="elements__card">
-      <button type="button" className="elements__trash-button"></button>
-      <img className="elements__image"/>
-      <h2 className="elements__title"></h2>
-      <div className="elements__like-container">
-        <button type="button" className="elements__like-button"></button>
-        <p className="elements__like-counter">0</p>
-      </div>
-    </li>
-  </template>
+  {/*<template className="elements__template">*/}
+  {/*  <li className="elements__card">*/}
+  {/*    <button type="button" className="elements__trash-button"></button>*/}
+  {/*    <img className="elements__image"/>*/}
+  {/*    <h2 className="elements__title"></h2>*/}
+  {/*    <div className="elements__like-container">*/}
+  {/*      <button type="button" className="elements__like-button"></button>*/}
+  {/*      <p className="elements__like-counter">0</p>*/}
+  {/*    </div>*/}
+  {/*  </li>*/}
+  {/*</template>*/}
 
      </div> // конец контейнера
   );
