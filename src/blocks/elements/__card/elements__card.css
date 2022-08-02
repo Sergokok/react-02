@@ -1,11 +1,16 @@
 .elements__card {
-    max-width: 100%;
-    background-color: #fff;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0 auto;
-    position: relative;
+	max-width: 100%;
+	background-color: #fff;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	border-radius: 10px;
+	overflow: hidden;
+	margin: 0 auto;
+	position: relative;
+	/* width: 282px;
+	height: 361px;
+	background: #ffffff;
+	border-radius: 10px;
+	position: relative; */
 }
