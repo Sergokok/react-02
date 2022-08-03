@@ -9,24 +9,43 @@ import ImagePopup from './ImagePopup';
 
 export default function App() {
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-	// const [selectedCard, setSelectedCard] = React.useState({});
-	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-	const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
-
 	function handleEditAvatarClick() {
 		setIsEditAvatarPopupOpen(true);
 	}
+
+	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true);
 	}
+
+	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 	function handleAddPlaceClick() {
 		setIsAddPlacePopupOpen(true);
 	}
+
+	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+
+	const [selectedCard, setSelectedCard] = React.useState(false);
 	function handleCardClick(card) {
-		// setSelectedCard(card);
+		setSelectedCard(card);
 		setIsImagePopupOpen(true);
+	}
+
+	// // попап подтверждения удаления карточки
+	const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
+	// function handleDeleteCardClick(card) {
+	// 	setSelectedCard(card);
+	// 	setIsConfirmDeletePopupOpen(true);
+	// }
+
+	// закрывает все окна
+	function closeAllPopups() {
+		setIsEditAvatarPopupOpen(false);
+		setIsEditProfilePopupOpen(false);
+		setIsAddPlacePopupOpen(false);
+		setIsImagePopupOpen(false);
+		setSelectedCard(null);
+		setIsConfirmDeletePopupOpen(false);
 	}
 
 	return (
@@ -43,7 +62,8 @@ export default function App() {
 			{/*// <!-- Попап редактирования профиля -->//*/}
 			<PopupWithForm
 				isOpen={isEditProfilePopupOpen}
-				onClose={() => setIsEditProfilePopupOpen(false)}
+				// onClose={() => setIsEditProfilePopupOpen(false)}
+				onClose={closeAllPopups}
 				title="Редактировать профиль"
 				name="form-profile"
 				onSubmit={'Сохранить'}
@@ -95,7 +115,8 @@ export default function App() {
 			{/*// <!-- Попап добавления новых карточек -->*/}
 			<PopupWithForm
 				isOpen={isAddPlacePopupOpen}
-				onClose={() => setIsAddPlacePopupOpen(false)}
+				// onClose={() => setIsAddPlacePopupOpen(false)}
+				onClose={closeAllPopups}
 				title={'Новое место'}
 				name={'form-card'}
 				onSubmit={'Добавить'}
@@ -134,7 +155,8 @@ export default function App() {
 			{/*// <!-- Попап редактирования аватара -->*/}
 			<PopupWithForm
 				isOpen={isEditAvatarPopupOpen}
-				onClose={() => setIsEditAvatarPopupOpen(false)}
+				// onClose={() => setIsEditAvatarPopupOpen(false)}
+				onClose={closeAllPopups}
 				title={'Редактировать аватар'}
 				name={'form-avatar'}
 				onSubmit={'Сохранить'}
@@ -158,10 +180,12 @@ export default function App() {
 				{/* </form> */}
 				{/* </section> */}
 			</PopupWithForm>
+
 			{/*// <!-- Попап удаления карточки -->*/}
 			<PopupWithForm
 				isOpen={isConfirmDeletePopupOpen}
-				onClose={() => setIsConfirmDeletePopupOpen(false)}
+				// onClose={() => setIsConfirmDeletePopupOpen(false)}
+				onClose={closeAllPopups}
 				title={'Удалить карточку'}
 				name={'form-delete'}
 				onSubmit={'Да'}
@@ -180,8 +204,9 @@ export default function App() {
 			{/*// <!-- Попап открытия фото -->*/}
 			<ImagePopup
 				name="popup_fullscreen"
-				card={isImagePopupOpen}
-				isOpen={setIsImagePopupOpen}
+				card={selectedCard}
+				isOpen={isImagePopupOpen}
+				onClose={closeAllPopups}
 				// onClose={() => setIsImagePopupOpen(false)}
 				// title={'Фото'}
 				// image={popup__caption}
