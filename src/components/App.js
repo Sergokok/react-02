@@ -8,31 +8,43 @@ import ImagePopup from './ImagePopup';
 // import Card from './Card';
 
 export default function App() {
+	/* // другой вариант закрытия по эскейпу
+	const handleEscClose = (evt) => {
+		if (evt.key === 'Escape') {
+			closeAllPopups();
+		}
+	};
+	*/
+
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 	function handleEditAvatarClick() {
-		setIsEditAvatarPopupOpen(true);
+		setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+		// document.addEventListener('keydown', handleEscClose);
 	}
 
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true);
+		// document.addEventListener('keydown', handleEscClose);
 	}
 
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 	function handleAddPlaceClick() {
 		setIsAddPlacePopupOpen(true);
+		// document.addEventListener('keydown', handleEscClose);
 	}
 
 	const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
 
-	const [selectedCard, setSelectedCard] = React.useState(false);
+	const [selectedCard, setSelectedCard] = React.useState(null);
 	function handleCardClick(card) {
 		setSelectedCard(card);
 		setIsImagePopupOpen(true);
+		// document.addEventListener('keydown', handleEscClose);
 	}
 
 	// // попап подтверждения удаления карточки
-	const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
+	// const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = React.useState(false);
 	// function handleDeleteCardClick(card) {
 	// 	setSelectedCard(card);
 	// 	setIsConfirmDeletePopupOpen(true);
@@ -45,7 +57,8 @@ export default function App() {
 		setIsAddPlacePopupOpen(false);
 		setIsImagePopupOpen(false);
 		setSelectedCard(null);
-		setIsConfirmDeletePopupOpen(false);
+		// setIsConfirmDeletePopupOpen(false);
+		// document.removeEventListener('keydown', handleEscClose);
 	}
 
 	return (
@@ -183,7 +196,7 @@ export default function App() {
 
 			{/*// <!-- Попап удаления карточки -->*/}
 			<PopupWithForm
-				isOpen={isConfirmDeletePopupOpen}
+				// isOpen={isConfirmDeletePopupOpen}
 				// onClose={() => setIsConfirmDeletePopupOpen(false)}
 				onClose={closeAllPopups}
 				title={'Удалить карточку'}
