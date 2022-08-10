@@ -3,6 +3,11 @@ import React from 'react';
 import api from '../Utils/Api';
 import Card from '../components/Card';
 
+// ### Используйте контекст в `Main`
+//
+// В зависимости от того, какой тип имеет ваш компонент `Main` (функциональный или классовый), используйте соответствующий подход, чтобы подписать его на `CurrentUserContext` и получить значение контекста.
+//
+//   Теперь у вас есть объект текущего пользователя, полученный из контекста. Используйте его поля `name`, `about` и `avatar` вместо стейт-переменных `userName`, `userDescription` и `userAvatar`, соответственно. Эти переменные, а также вызов `api.getUserInfo` внутри `Main` больше не нужны — их можно удалить.
 export default function Main(props) {
   const [cards, setCards] = React.useState('');
   const [userName, setUserName] = React.useState('');
