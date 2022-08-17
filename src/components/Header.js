@@ -1,11 +1,9 @@
-import logo from '../images/logo.svg';
+import logo from '../images/logo.svg'
 
 export default function Header() {
-	return (
+	return(
 		<header className="header">
-			<a href="#">
-				<img src={logo} alt="Лого проекта Место Россия" className="header__logo" />
-			</a>
+			<img className="header__logo" src={logo} alt="Логотип" />
 		</header>
-	);
+	)
 }

@@ -1,39 +1,30 @@
-import React from 'react';
+import React from "react";
 
 export default function ImagePopup({ card, onClose }) {
-	const cardFullscreen = !!card;
-	const className = `popup popup_type_${cardFullscreen ? 'card' : 'profile'} ${
-		cardFullscreen ? 'popup_opened' : ''
-	}`;
+	const className = `popup popup_fullscreen ${card ? "popup_active" : ""}`;
 
 	return (
-		// <div
-		// 	className={`popup popup_fullscreen popup_type_fullscreen ${
-		// 		cardFullscreen && `popup_opened`
-		// 	}`}
-		// >
-		<div className={className} onClick={onClose}>
+		<div
+			className={className}
+			onClick={onClose}>
 			<div
 				className="popup__image-container"
 				onClick={(event) => {
 					event.stopPropagation();
-				}}
-			>
+				}}>
 				<figure className="popup__figure">
 					<button
+						className="popup__close-button"
 						type="button"
-						className="popup__close-button popup__close"
-						onClick={onClose}
-					></button>
+						onClick={onClose}>
+					</button>
 					<img
 						className="popup__image"
-						src={cardFullscreen ? card.link : ``}
-						alt={cardFullscreen ? card.name : ``}
-					/>
-					<figcaption className="popup__caption"> {`${cardFullscreen && card.name}`}</figcaption>
+						src={card ? card.link : ``}
+						alt={card ? card.name : ``}/>
+					<figcaption className="popup__caption">{card ? card.name : ``}</figcaption>
 				</figure>
 			</div>
 		</div>
 	);
 }
-

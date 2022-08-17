@@ -1,43 +1,37 @@
-import React from 'react';
-// import avatar from '../images/avatar.png';
-import api from '../Utils/Api';
-import Card from '../components/Card';
+import React, {useState, useEffect} from "react";
+import Card from "./Card";
+import api from "../utils/Api";
 
-// ### Используйте контекст в `Main`
-//
-// В зависимости от того, какой тип имеет ваш компонент `Main` (функциональный или классовый), используйте соответствующий подход, чтобы подписать его на `CurrentUserContext` и получить значение контекста.
-//
-//   Теперь у вас есть объект текущего пользователя, полученный из контекста. Используйте его поля `name`, `about` и `avatar` вместо стейт-переменных `userName`, `userDescription` и `userAvatar`, соответственно. Эти переменные, а также вызов `api.getUserInfo` внутри `Main` больше не нужны — их можно удалить.
 export default function Main(props) {
-  const [cards, setCards] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState([]);
+  const [cards, setCards] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState([]);
 
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([info, initCards]) => {
-      setUserName(info.name);
-      setUserDescription(info.about);
-      setUserAvatar(info.avatar);
-      setCards(initCards);
-    }).catch(err => {
-      console.log(err);
-    });
-  }, []);
+  useEffect(() => {
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([info, initCards]) => {
+          setUserName(info.name);
+          setUserDescription(info.about);
+          setUserAvatar(info.avatar);
+          setCards(initCards);
+        }).catch((err) => {
+        console.log(err);
+      });
+    }, []
+  );
 
-  return (
+  return(
     <main className="content">
-      {/*// <!-- Профиль пользователя -->*/}
-      <div className="profile">
+      {/* <!-- Профиль пользователя --> */}
+      <section className="profile">
         <div className="profile__avatar-container">
           <img
             className="profile__avatar"
             src={userAvatar}
-            alt="Аватар пользователя"
-          />
-          <div className="profile__avatar-overlay" onClick={props.onEditAvatar}>
-            <button className="profile__avatar-button"></button>
+            alt={userName}/>
+          <div className="profile__avatar-overlay">
+            <button className="profile__avatar-button" onClick={props.onEditAvatar}></button>
           </div>
         </div>
         <div className="profile__info">
@@ -46,24 +40,19 @@ export default function Main(props) {
         </div>
         <button type="button" className="profile__edit-button" onClick={props.onEditProfile}></button>
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
-      </div>
-      {/*// <!-- Карточки мест -->*/}
-      <div className="elements">
-        {cards &&
-          cards.map((newCard) => {
-            return (
-              <Card
-                card={newCard}
-                key={newCard._id}
-                name={newCard.name}
-                link={newCard.link}
-                likes={newCard.likes.length}
-                onCardClick={props.onCardClick}
-              />
-            );
-          })}
-      </div>
+      </section>
+      <section className="elements">
+        {cards && cards.map((newCard) => (
+            <Card
+              card={newCard}
+              key={newCard._id}
+              name={newCard.name}
+              link={newCard.link}
+              onCardClick={props.onCardClick}
+              likes={newCard.likes.length} />
+          )
+        )}
+      </section>
     </main>
   );
 }
-
