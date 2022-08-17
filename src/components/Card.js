@@ -5,10 +5,12 @@ export default function Card(props) {
 
 	const currentUser = useContext(CurrentUserContext);
 // владелец ли карточки
-	const isOwn = props.card.owner.id === currentUser._id;
+	const isOwn = props.card.owner._id === currentUser._id;
 
 	// делаем класс для кнопки удаления
-	const cardDeleteButtonClassName =`elements__trash-button ${isOwn ? "elements__trash-button" : "elements__trash-button_hide"}`;
+	// const cardDeleteButtonClassName =`elements__trash-button_hide ${isOwn && "elements__trash-button"}`;
+
+	const cardDeleteButtonClassName = isOwn ? "elements__trash-button" : "elements__trash-button_hide";
 
 	// Определяем, есть ли у карточки лайк, поставленный текущим пользователем
 	const isLiked = props.card.likes.some(i => i._id === currentUser._id);
