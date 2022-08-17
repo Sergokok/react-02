@@ -71,6 +71,21 @@ class Api {
 			body: JSON.stringify(avatar),
 		}).then((res) => this._getResponseData(res));
 	}
+
+
+	changeLikeCardStatus(cardId, isLiked) {
+		if (isLiked) {
+			return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+				method: "DELETE",
+				headers: this._headers,
+			}).then(this._getResponseData);
+		} else {
+			return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+				method: "PUT",
+				headers: this._headers,
+			}).then(this._getResponseData);
+		}
+	}
 }
 
 // Авторизация

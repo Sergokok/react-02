@@ -18,6 +18,22 @@ export default function Main(props) {
     });
   }, []);
 
+ function handleCardLike(card) {
+   const isLiked = card.likes.some((like) => like._id === currentUser._id);
+
+   //отправляем запрос в api, получаем обновленные данные карточки, находим нужную карочку и обновляем
+   api.changeLikeCardStatus(card._id, isLiked)
+     .then((newCard) => {
+     setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+   });
+ }
+  function handleCardDelete(card) {
+    //Отправляем запрос в API, получаем обновлённые данные карточки, находим нужную карточку и обновляем
+    api.deleteCard(card._id).then(() => {
+      setCards((state) => state.filter((c) => (c._id !== card._id)));
+    });
+  }
+
   // const [userName, setUserName] = useState("");
   // const [userDescription, setUserDescription] = useState("");
   // const [userAvatar, setUserAvatar] = useState([]);
@@ -63,7 +79,10 @@ export default function Main(props) {
               name={newCard.name}
               link={newCard.link}
               onCardClick={props.onCardClick}
-              likes={newCard.likes.length} />
+              likes={newCard.likes.length}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
           )
         )}
       </section>
