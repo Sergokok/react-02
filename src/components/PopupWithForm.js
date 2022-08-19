@@ -14,9 +14,12 @@ export default function PopupWithForm({ title, isOpen, onClose, children, name, 
 			document.removeEventListener("keydown", handleEscClose);
 		}
 	}, [isOpen, onClose]);
+
+	// Добавьте новому компоненту пропсы isOpen и onClose и пробрасывайте их в PopupWithForm.
+
 	return (
 		<div className={className} onClick={onClose}>
-			<form
+			<form onSubmit={onSubmit}
 				className="popup__form"
 				onClick={(e) => {
 					e.stopPropagation();
@@ -31,7 +34,7 @@ export default function PopupWithForm({ title, isOpen, onClose, children, name, 
 				<button
 					className="popup__submit-button"
 					type="submit">
-					{onSubmit}
+					{/*{onSubmit}*/}
 				</button>
 			</form>
 		</div>

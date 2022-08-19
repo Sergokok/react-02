@@ -7,6 +7,7 @@ import Footer from './Footer'
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 export default function App() {
 	const [currentUser, setCurrentUser] = useState({});
@@ -57,6 +58,21 @@ export default function App() {
 		setSelectedCard(null)
 	}
 
+	// Теперь нужно создать обработчик в App. Назовите его handleUpdateUser и задайте его в виде нового пропса onUpdateUser для компонента EditAvatarPopup. Внутри этого обработчика вызовите api.setUserInfo. После завершения запроса обновите стейт currentUser из полученных данных и закройте все модельные окна.
+	function handleUpdateUser(data) {
+		api.
+		// setUserInfo(data)
+			changeUserInfo(data)
+			.then(res => {
+				setCurrentUser(res);
+				closeAllPopups();
+			}).catch(err => {
+				console.log(err);
+			}
+		);
+	}
+
+
 	return(
 		<CurrentUserContext.Provider value={currentUser}>
 		<div className='page'>
@@ -69,32 +85,38 @@ export default function App() {
 			<Footer />
 
 			{/* <!-- Попап редактирования профиля --> */}
-			<PopupWithForm
+			<EditProfilePopup
 				isOpen={isEditProfilePopupOpen}
 				onClose={closeAllPopups}
-				title="Редактировать профиль"
-				name="form-profile"
-				onSubmit="Сохранить">
-				<input
-					id="name-input"
-					className="popup__input popup__input_name"
-					placeholder="Имя"
-					type="text"
-					required
-					maxLength="40"
-					minLength="2"/>
-				<span className="popup__input-error name-input-error"></span>
-				<input
-					id="about-input"
-					className="popup__input popup__input_about"
-					placeholder="Профессия"
-					type="text"
-					required
-					maxLength="200"
-					minLength="2"
-				/>
-				<span className="popup__input-error about-input-error"></span>
-			</PopupWithForm>
+				onUpdateUser={handleUpdateUser}/>
+			/>
+
+			{/*<PopupWithForm*/}
+			{/*	isOpen={isEditProfilePopupOpen}*/}
+			{/*	onClose={closeAllPopups}*/}
+			{/*	title="Редактировать профиль"*/}
+			{/*	name="form-profile"*/}
+			{/*	onSubmit="Сохранить">*/}
+			{/*	<input*/}
+			{/*		id="name-input"*/}
+			{/*		className="popup__input popup__input_name"*/}
+			{/*		placeholder="Имя"*/}
+			{/*		type="text"*/}
+			{/*		required*/}
+			{/*		maxLength="40"*/}
+			{/*		minLength="2"/>*/}
+			{/*	<span className="popup__input-error name-input-error"></span>*/}
+			{/*	<input*/}
+			{/*		id="about-input"*/}
+			{/*		className="popup__input popup__input_about"*/}
+			{/*		placeholder="Профессия"*/}
+			{/*		type="text"*/}
+			{/*		required*/}
+			{/*		maxLength="200"*/}
+			{/*		minLength="2"*/}
+			{/*	/>*/}
+			{/*	<span className="popup__input-error about-input-error"></span>*/}
+			{/*</PopupWithForm>*/}
 			{/* <!-- Попап добавления новых карточек --> */}
 			<PopupWithForm
 				isOpen={isAddPlacePopupOpen}

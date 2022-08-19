@@ -20,15 +20,27 @@ class Api {
 	}
 
 	// Отправка данных пользователя
-	setUserInfo({ name, about }) {
+	// setUserInfo({ name, about }) {
+	// 	return fetch(`${this._baseUrl}/users/me`, {
+	// 		method: 'PATCH',
+	// 		headers: this._headers,
+	// 		body: JSON.stringify({
+	// 			name: name,
+	// 			about: about,
+	// 		}),
+	// 	}).then((res) => this._getResponseData(res));
+	// }
+
+	// ДРУГОЕ изменение данных пользователя
+	changeUserInfo(data) {
 		return fetch(`${this._baseUrl}/users/me`, {
-			method: 'PATCH',
+			method: "PATCH",
 			headers: this._headers,
 			body: JSON.stringify({
-				name: name,
-				about: about,
+				name: data["name"],
+				about: data["about"],
 			}),
-		}).then((res) => this._getResponseData(res));
+		}).then(this._getResponseData);
 	}
 
 	// Получение карточки
