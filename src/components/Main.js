@@ -1,12 +1,12 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useContext } from "react";
 import Card from "./Card";
-import api from "../utils/Api";
+// import api from "../utils/Api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 export default function Main(props) {
   const currentUser = useContext(CurrentUserContext);
 
-  const [cards, setCards] = useState("");
+  /* const [cards, setCards] = useState("");
 
   useEffect(() => {
     api.getInitialCards()
@@ -16,9 +16,9 @@ export default function Main(props) {
       .catch((err) => {
       console.log(err);
     });
-  }, []);
+  }, []); */
 
- function handleCardLike(card) {
+ /* function handleCardLike(card) {
    const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
    //отправляем запрос в api, получаем обновленные данные карточки, находим нужную карочку и обновляем
@@ -32,7 +32,7 @@ export default function Main(props) {
     api.deleteCard(card._id).then(() => {
       setCards((state) => state.filter((c) => (c._id !== card._id)));
     });
-  }
+  }*/
 
   // const [userName, setUserName] = useState("");
   // const [userDescription, setUserDescription] = useState("");
@@ -72,16 +72,17 @@ export default function Main(props) {
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
-        {cards && cards.map((newCard) => (
+        {props.cards &&
+            props.cards.map((newCard) => (
             <Card
               card={newCard}
               key={newCard._id}
               name={newCard.name}
               link={newCard.link}
-              onCardClick={props.onCardClick}
               likes={newCard.likes.length}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
             />
           )
         )}

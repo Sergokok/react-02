@@ -20,28 +20,28 @@ class Api {
 	}
 
 	// Отправка данных пользователя
-	// setUserInfo({ name, about }) {
-	// 	return fetch(`${this._baseUrl}/users/me`, {
-	// 		method: 'PATCH',
-	// 		headers: this._headers,
-	// 		body: JSON.stringify({
-	// 			name: name,
-	// 			about: about,
-	// 		}),
-	// 	}).then((res) => this._getResponseData(res));
-	// }
-
-	// ДРУГОЕ изменение данных пользователя
-	changeUserInfo(data) {
+	setUserInfo({ name, about }) {
 		return fetch(`${this._baseUrl}/users/me`, {
-			method: "PATCH",
+			method: 'PATCH',
 			headers: this._headers,
 			body: JSON.stringify({
-				name: data["name"],
-				about: data["about"],
+				name: name,
+				about: about,
 			}),
-		}).then(this._getResponseData);
+		}).then((res) => this._getResponseData(res));
 	}
+
+	// ДРУГОЕ изменение данных пользователя
+	// changeUserInfo(data) {
+	// 	return fetch(`${this._baseUrl}/users/me`, {
+	// 		method: "PATCH",
+	// 		headers: this._headers,
+	// 		body: JSON.stringify({
+	// 			name: data["name"],
+	// 			about: data["about"],
+	// 		}),
+	// 	}).then(this._getResponseData);
+	// }
 
 	// Получение карточки
 	getInitialCards() {
@@ -50,7 +50,7 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 
-	// Добавление карточки
+	// Добавление карточки старое
 	addCard(item) {
 		return fetch(`${this._baseUrl}/cards`, {
 			method: 'POST',
@@ -58,6 +58,18 @@ class Api {
 			body: JSON.stringify(item),
 		}).then((res) => this._getResponseData(res));
 	}
+
+	// Добавление карточки новое
+	// addNewCard({ name, link }) {
+	// 	return fetch(`${this._baseUrl}/cards`, {
+	// 		method: 'POST',
+	// 		headers: this._headers,
+	// 		body: JSON.stringify({
+	// 			name: name,
+	// 			link: link,
+	// 		}),
+	// 	}).then((res) => this._getResponseData(res));
+	// }
 
 	// Удаление карточки
 	deleteCard(cardId) {
@@ -67,7 +79,7 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 
-	// Лайки
+	// Лайки старые
 	likeCard(cardId, method) {
 		return fetch(`${this._baseUrl}/cards/${cardId}/likes/`, {
 			method: method,
