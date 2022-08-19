@@ -15,7 +15,7 @@ export default function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser, isOpen]);
 
     // Теперь в компоненте EditAvatarPopup можно добавить обработчик handleSubmit. Однако, мы не можем делать запрос в API прямо в этом обработчике, потому что после его завершения нужно обновить переменную состояния currentUser, которая находится ещё выше — в компоненте App. Поэтому эта функция будет содержать следующий код:
     function handleSubmit(e) {

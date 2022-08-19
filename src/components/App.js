@@ -8,6 +8,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 export default function App() {
 	const [currentUser, setCurrentUser] = useState({});
@@ -72,6 +73,18 @@ export default function App() {
 		);
 	}
 
+	function handleUpdateAvatar(data) {
+		api
+			.editAvatar(data)
+			.then(res => {
+				setCurrentUser(res);
+				closeAllPopups();
+			}).catch(err => {
+				console.log(err);
+			}
+		);
+	}
+
 
 	return(
 		<CurrentUserContext.Provider value={currentUser}>
@@ -81,7 +94,9 @@ export default function App() {
 				onEditProfile={handleEditProfilePopupClick}
 				onEditAvatar={handleEditAvatarPopupClick}
 				onAddPlace={handleAddPlacePopupClick}
-				onCardClick={handleCardClick}/>
+				onCardClick={handleCardClick}
+				// onUpdateAvatar={handleUpdaterAvatar}
+			/>
 			<Footer />
 
 			{/* <!-- Попап редактирования профиля --> */}
@@ -144,23 +159,28 @@ export default function App() {
 				<span className="popup__input-error link-input-error"></span>
 			</PopupWithForm>
 			{/* <!-- Попап редактирования аватара --> */}
-			<PopupWithForm
+			<EditAvatarPopup
 				isOpen={isEditAvatarPopupOpen}
 				onClose={closeAllPopups}
-				title="Редактировать аватар"
-				name="form-avatar"
-				onSubmit="Сохранить"
-			>
-				<input
-					className="popup__input popup__input_avatar"
-					id="avatar-input"
-					placeholder="Ссылка на картинку"
-					type="url"
-					name="avatar"
-					required
-				/>
-				<span className="popup__input-error avatar-input-error"></span>
-			</PopupWithForm>
+				onUpdateAvatar={handleUpdateAvatar}/>
+			/>
+			{/*<PopupWithForm*/}
+			{/*	isOpen={isEditAvatarPopupOpen}*/}
+			{/*	onClose={closeAllPopups}*/}
+			{/*	title="Редактировать аватар"*/}
+			{/*	name="form-avatar"*/}
+			{/*	onSubmit="Сохранить"*/}
+			{/*>*/}
+			{/*	<input*/}
+			{/*		className="popup__input popup__input_avatar"*/}
+			{/*		id="avatar-input"*/}
+			{/*		placeholder="Ссылка на картинку"*/}
+			{/*		type="url"*/}
+			{/*		name="avatar"*/}
+			{/*		required*/}
+			{/*	/>*/}
+			{/*	<span className="popup__input-error avatar-input-error"></span>*/}
+			{/*</PopupWithForm>*/}
 			{/* <!-- Попап открытия фото --> */}
 			<ImagePopup
 				name="popup_fullscreen"
